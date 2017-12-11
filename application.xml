@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="hallEventsProcessor" class="ru.sbt.mipt.oop.HallEventsProcessor"/>
+    <bean id="lightEventProcessor" class="ru.sbt.mipt.oop.LightEventProcessor"/>
+    <bean id="doorEventProcessor" class="ru.sbt.mipt.oop.DoorEventProcessor"/>
+    <bean id="smartHome" class="ru.sbt.mipt.oop.SmartHomeGsonFileReader" factory-method="read" />
+    <bean id="eventObserver" class="ru.sbt.mipt.oop.EventObserver">
+        <constructor-arg index="0" ref="smartHome"/>
+        <property name="handlers">
+            <list>
+                <ref bean="lightEventProcessor"/>
+                <ref bean="doorEventProcessor"/>
+                <ref bean="hallEventsProcessor"/>
+            </list>
+        </property>
+    </bean>
+</beans>
